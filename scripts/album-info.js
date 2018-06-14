@@ -4,7 +4,13 @@
 $('#album-title').text(album.title);
 
 //Use .attr() method to add album.albumArtUrl to the
-//src attribute of the img#album-cover-art element
+//src attribute of the img#album-cover-art DOM element.
 $('img#album-cover-art').attr('src',album.albumArtUrl);
+
+//artist Info
+$('.artist').text(album.artist);
+
+//release info
+$('#release-info').text(album.releaseInfo);
 
 }
