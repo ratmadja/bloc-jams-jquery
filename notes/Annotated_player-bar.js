@@ -1,7 +1,7 @@
 {
 
 
-//Write a click handler that targets the #play-pause buttons
+//1 Write a click handler that targets the #play-pause buttons
 $('button#play-pause').on('click', function() {
 
   //Play song by calling player.playPause()
@@ -18,7 +18,7 @@ $('button#play-pause').on('click', function() {
 });
 
 
-//Write a click handler that targets the button#next
+//2 Write a click handler that targets the button#next
 $('button#next').on('click',function() {
 
   //If song is not playing, then abort
@@ -39,7 +39,7 @@ $('button#next').on('click',function() {
 });
 
 
-//Write a click hander that targets button#previous
+//3 Write a click hander that targets button#previous
 $('button#previous').on('click',function() {
 
   //If song is not playing, then abort
@@ -57,6 +57,45 @@ $('button#previous').on('click',function() {
   player.playPause(previousSong);
 
 });
+
+
+//5 To change the song's playback position
+//Create event handler that responds to input changes on the
+//time control range input, using the .on() method to bind to any DOM event
+$('#time-control input').on('input', function(event) {
+    //use plaer object's .skipTo() method to change the time in audio soundFileUrl
+    //.skipTo() accepts a percentage as a parameter
+    //pass it the 'value' property of our seek bar, event.target
+    player.skipTo(event.target.value);
+});
+
+
+//4 To make our time control's range input update every second
+//to reflect the current time of the song,
+//Use the setInterval() method (applies to the global window object)
+//Pass 2 parameters: an empty callback function and the no. 1000
+setInterval( () => {
+
+  //If a song isn't playing, abort
+  if (player.playState !== 'playing') {return; }
+
+  //Convert current time to percentage before applying
+  //a value for the range input, percent = (part/whole)*100
+  //Use the player object's .getTime() to get the part
+  //And the .getDuration() to get the whole
+  const currentTime = player.getTime();
+  const duration = player.getDuration();
+  const percent = (currentTime/duration) * 100;
+
+  //Update current time, use jQuery's .text() method
+  //to set #time-control .current-time to the value of the currentTime
+  $('#time-control .current-time').text(currentTime);
+
+  //Now that we have percent, set the input's value
+  //by using jQuery's .val() method, used to set or get the text
+  //value of input or textarea elements
+  $('#time-control input').val(percent);
+}, 1000);
 
 
 }
