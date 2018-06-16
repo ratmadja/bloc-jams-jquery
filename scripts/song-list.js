@@ -39,7 +39,6 @@
     //insde the player object inside a click event handler
     song.element.on('click', event => {
       player.playPause(song);
-      //The 'playState' attr on #play-pause needs to change when song is clicked
       $('button#play-pause').attr('playState', player.playState);
     });
 
