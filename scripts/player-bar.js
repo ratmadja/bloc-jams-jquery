@@ -21,13 +21,10 @@ $('button#next').on('click',function() {
 
 $('button#previous').on('click',function() {
   if (player.playState !== 'playing') {return; }
-
   const currentSongIndex = album.songs.indexOf(player.currentlyPlaying);
   const previousSongIndex = currentSongIndex - 1;
   const previousSong = album.songs[previousSongIndex];
-
   if (previousSongIndex < 0) {return; }
-
   helper.playPauseAndUpdate(previousSong);
   });
 
@@ -42,15 +39,18 @@ setInterval( () => {
   const currentTime = player.getTime();
   const duration = player.getDuration();
   const percent = (currentTime/duration) * 100;
-  $('#time-control .current-time').text(currentTime);
+
+  const currentTimePretty = player.prettyTime(currentTime);
+  $('#time-control .current-time').text(currentTimePretty);
+
   $('#time-control input').val(percent);
 }, 1000);
 
 
 $('#volume-control input').on('input', function(event) {
   player.setVolume(event.target.value);
-});
 
+});
 
 
 
